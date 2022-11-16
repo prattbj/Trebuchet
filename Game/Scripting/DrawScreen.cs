@@ -130,6 +130,7 @@ namespace Trebuchet.Game.Scripting
                     if (((key >= 48 && key <= 57) || key == 46) && (inputField.getInput().Length < Constants.MAX_INPUT_CHARS))
                     {
                         inputField.addChar((char)key);
+                        charCount++;
                     }
 
                     key = GetCharPressed();  // Check next character in the queue
@@ -139,7 +140,10 @@ namespace Trebuchet.Game.Scripting
                 if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE))
                 {
                     if (inputField.getInput().Length > 0)
+                    {
                         inputField.setInput(inputField.getInput().Remove(inputField.getInput().Length - 1, 1));
+                        charCount--;
+                    }
                 }
                 if (CheckCollisionPointRec(GetMousePosition(), inputField.getRectangle()) == false)
                 {
@@ -159,15 +163,17 @@ namespace Trebuchet.Game.Scripting
             else 
                 DrawRectangleLines((int)inputField.getRectangle().x, (int)inputField.getRectangle().y, (int)inputField.getRectangle().width, (int)inputField.getRectangle().height, DARKGRAY);
 
-            DrawText(inputField.getInput(), (int)inputField.getRectangle().x + 5, (int)inputField.getRectangle().y + 8, 30, BLACK);
+            Vector2 textPos = new Vector2((int)inputField.getRectangle().x + 5, (int)inputField.getRectangle().y + 2);
+            DrawTextEx(Constants.font, inputField.getInput(), textPos, 35, 1, BLACK);
 
             if (typing)
                 {
                     if (charCount < Constants.MAX_INPUT_CHARS)
                     {
                         // Draw blinking underscore char
+                         Vector2 cursorPos = new Vector2((int)inputField.getRectangle().x + 8 + MeasureText(inputField.getInput(), 30), (int)inputField.getRectangle().y + 8);
                         if (((framesCounter / 20) % 2) == 0)
-                        DrawText("_", (int)inputField.getRectangle().x + 8 + MeasureText(inputField.getInput(), 30), (int)inputField.getRectangle().y + 12, 30, MAROON);
+                            DrawTextEx(Constants.font, "_", cursorPos, 30, 1, MAROON);
                     }
                 }   
         }
