@@ -32,7 +32,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D ballTexture = LoadTextureFromImage(ball);
             textures["Ball"] = ballTexture;
 
-            Image castle = LoadImage("Game/Assets/Images/castle.png");
+            Image castle = LoadImage("Game/Assets/Images/castle2.png");
             Texture2D castleTexture = LoadTextureFromImage(castle);
             textures["Castle"] = castleTexture;
         }
@@ -236,7 +236,10 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawTrebuchet(Texture2D texture)
         {
+            BeginDrawing();
             DrawTexture(texture, 0, 400, WHITE);
+            System.Console.WriteLine("BEANS");
+            EndDrawing();
         }
         private void DrawTrebuchetAnimation()
         {
@@ -258,14 +261,15 @@ namespace Trebuchet.Game.Scripting
                 LoadImage("Game/Assets/Images/trebuchet/trebuchet 13.png")
             };
 
-            for (int i = 0; i < trebuchet.Length; i++)
+            foreach (Image frame in trebuchet)
             {
                 float timeElapsed = (float)0.0;
                 var frameTime = Raylib.GetFrameTime();
 
-                while (timeElapsed < .2f)
+                while (timeElapsed < .2)
                 {
-                    Texture2D trebuchetTexture = LoadTextureFromImage(trebuchet[i]);
+                    System.Console.WriteLine(frameTime);
+                    Texture2D trebuchetTexture = LoadTextureFromImage(frame);
                     textures["Trebuchet Moving"] = trebuchetTexture;
                     DrawTrebuchet(textures["Trebuchet Moving"]);
                     timeElapsed += frameTime;
