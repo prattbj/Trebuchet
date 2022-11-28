@@ -54,6 +54,7 @@ namespace Trebuchet.Game.Scripting
             if (launch == true)
             {
                 counterWeight.setAnswer();
+                launch = false;
             }
         }
         
