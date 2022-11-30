@@ -12,17 +12,22 @@ namespace Trebuchet.Game.Scripting
         //double answer = 0;
         int charCount = 0;
 
+        int frame = 0;
+
+        bool throwing = false;
+
         bool typing = false;
 
         int framesCounter = 0;
         bool launch = false;
+        float timer = 0.0f;
 
         private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         public DrawScreen()
         {
             Image idleTrebuchet = LoadImage("Game/Assets/Images/trebuchet/trebuchet idle.png");
-            Texture2D trebuchetTexture = LoadTextureFromImage(idleTrebuchet);
-            textures["Idle Trebuchet"] = trebuchetTexture;
+            Texture2D idleTexture = LoadTextureFromImage(idleTrebuchet);
+            textures["Idle Trebuchet"] = idleTexture;
 
             Image background = LoadImage("Game/Assets/Images/background-v1.png");
             Texture2D bgTexture = LoadTextureFromImage(background);
@@ -35,6 +40,10 @@ namespace Trebuchet.Game.Scripting
             Image castle = LoadImage("Game/Assets/Images/castle2.png");
             Texture2D castleTexture = LoadTextureFromImage(castle);
             textures["Castle"] = castleTexture;
+
+            Image trebuchet = LoadImage("Game/Assets/Images/trebuchet/trebuchet sprite sheet.png");
+            Texture2D trebuchetTexture = LoadTextureFromImage(trebuchet);
+            textures["Moving Trebuchet"] = trebuchetTexture;
         }
         public void Execute(Ball ball, InputField counterWeight)
         {
@@ -56,12 +65,28 @@ namespace Trebuchet.Game.Scripting
             if (launch == true)
             {
                 counterWeight.setAnswer();
-                DrawTrebuchetAnimation();
+                throwing = true;
                 launch = false;
             }
 
-            EndDrawing();
+            if (throwing == true)
+            {
+                timer += GetFrameTime();
 
+                if (timer >= .2f)
+                {
+                    timer = 0.0f;
+                    frame++;                
+                }
+                DrawTrebuchetAnimation(textures["Moving Trebuchet"], frame);  
+
+                if (frame == 13)
+                {
+                    throwing = false;
+                    frame = 0;
+                }
+            }
+            EndDrawing();
         }
         
         bool IsAnyKeyPressed()
@@ -238,33 +263,15 @@ namespace Trebuchet.Game.Scripting
         {
             DrawTexture(texture, 0, 400, WHITE);
         }
-        private void DrawTrebuchetAnimation()
+        private void DrawTrebuchetAnimation(Texture2D texture, int frame)
         {
-            Image trebuchet = LoadImage("./Assets/Images/trebuchet/trebuchet sprite sheet.png");
-            Texture2D trebuchetTexture = LoadTextureFromImage(trebuchet);
-
-            float frameWidth = (float)(trebuchet.width / 13);
-
-            float timer = 0.0f;
-            int frame = 0;
+            float frameWidth = 400;
 
             BeginDrawing();
-
-            while (frame < 13)
-            {
-                Console.WriteLine("Frame: " + frame);
-                Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)trebuchet.height);
-                Vector2 pos = new Vector2(0, 400);
-                DrawTextureRec(trebuchetTexture, border, pos, RAYWHITE);
-
-                timer += GetFrameTime();
-
-                if (timer >= .2f)
-                {
-                    timer = 0.0f;
-                    frame += 1;
-                }
-            }
+            Console.WriteLine("Frame: " + frame);
+            Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)texture.height);
+            Vector2 pos = new Vector2(0, 400);
+            DrawTextureRec(texture, border, pos, WHITE);
             EndDrawing();
         }
     }
