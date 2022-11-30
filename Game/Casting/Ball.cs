@@ -38,6 +38,12 @@ namespace Trebuchet.Game.Casting
             this.y += ((dy * 1/60.0) + (.5 * 9.8 * (1.0 / 60.0 ) * (1.0 / 60.0 )));
             this.dy += (9.8 * 1280/250) * 1.0/60.0;
             v = Math.Sqrt(dx * dx + dy * dy) / (1280 / 250);
+
+            if (this.x > 1600 || this.y > 900)
+            {
+                exists = false;
+                v = 0;
+            }
         }
 
         static double ComputeVelocity(double ballWeight, double counterWeight, double counterHeight, double ballHeight)

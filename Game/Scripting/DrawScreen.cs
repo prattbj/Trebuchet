@@ -20,6 +20,10 @@ namespace Trebuchet.Game.Scripting
         private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         public DrawScreen()
         {
+            Image idleTrebuchet = LoadImage("Game/Assets/Images/trebuchet/trebuchet idle.png");
+            Texture2D trebuchetTexture = LoadTextureFromImage(idleTrebuchet);
+            textures["Idle Trebuchet"] = trebuchetTexture;
+
             Image background = LoadImage("Game/Assets/Images/background-v1.png");
             Texture2D bgTexture = LoadTextureFromImage(background);
             textures["Background"] = bgTexture;
@@ -28,18 +32,17 @@ namespace Trebuchet.Game.Scripting
             Texture2D ballTexture = LoadTextureFromImage(ball);
             textures["Ball"] = ballTexture;
 
-            Image castle = LoadImage("Game/Assets/Images/castle.png");
+            Image castle = LoadImage("Game/Assets/Images/castle2.png");
             Texture2D castleTexture = LoadTextureFromImage(castle);
             textures["Castle"] = castleTexture;
         }
         public void Execute(Ball ball, Castle castle, InputField counterWeight)
         {
-            DrawBackground(textures["Background"]);
-            DrawTexture(textures["Ball"], (int)ball.getX(), (int)ball.getY(), WHITE);
             BeginDrawing();
             ClearBackground(RAYWHITE);
 
             DrawBackground(textures["Background"]);
+            //DrawTrebuchet(textures["Idle Trebuchet"]);
             if (ball.getExists())
             {
                 DrawBall(textures["Ball"], ball);
@@ -49,12 +52,15 @@ namespace Trebuchet.Game.Scripting
             DrawSubmitButton(1150, 840, 185, 50);
             DrawEquations(ball);
 
-            EndDrawing();
-            //When the submit button is pressed, set the answers for each input field
+            //When the submit button is pressed, set the answers for each input field and reset launch
             if (launch == true)
             {
                 counterWeight.setAnswer();
+                DrawTrebuchetAnimation();
+                launch = false;
             }
+
+            EndDrawing();
         }
         
         bool IsAnyKeyPressed()
@@ -130,6 +136,7 @@ namespace Trebuchet.Game.Scripting
                     if (((key >= 48 && key <= 57) || key == 46) && (inputField.getInput().Length < Constants.MAX_INPUT_CHARS))
                     {
                         inputField.addChar((char)key);
+                        charCount++;
                     }
 
                     key = GetCharPressed();  // Check next character in the queue
@@ -139,7 +146,10 @@ namespace Trebuchet.Game.Scripting
                 if (IsKeyPressed(KeyboardKey.KEY_BACKSPACE))
                 {
                     if (inputField.getInput().Length > 0)
+                    {
                         inputField.setInput(inputField.getInput().Remove(inputField.getInput().Length - 1, 1));
+                        charCount--;
+                    }
                 }
                 if (CheckCollisionPointRec(GetMousePosition(), inputField.getRectangle()) == false)
                 {
@@ -159,15 +169,17 @@ namespace Trebuchet.Game.Scripting
             else 
                 DrawRectangleLines((int)inputField.getRectangle().x, (int)inputField.getRectangle().y, (int)inputField.getRectangle().width, (int)inputField.getRectangle().height, DARKGRAY);
 
-            DrawText(inputField.getInput(), (int)inputField.getRectangle().x + 5, (int)inputField.getRectangle().y + 8, 30, BLACK);
+            Vector2 textPos = new Vector2((int)inputField.getRectangle().x + 5, (int)inputField.getRectangle().y + 2);
+            DrawTextEx(Constants.font, inputField.getInput(), textPos, 35, 1, BLACK);
 
             if (typing)
                 {
                     if (charCount < Constants.MAX_INPUT_CHARS)
                     {
                         // Draw blinking underscore char
+                         Vector2 cursorPos = new Vector2((int)inputField.getRectangle().x + 8 + MeasureText(inputField.getInput(), 30), (int)inputField.getRectangle().y + 8);
                         if (((framesCounter / 20) % 2) == 0)
-                        DrawText("_", (int)inputField.getRectangle().x + 8 + MeasureText(inputField.getInput(), 30), (int)inputField.getRectangle().y + 12, 30, MAROON);
+                            DrawTextEx(Constants.font, "_", cursorPos, 30, 1, MAROON);
                     }
                 }   
         }
@@ -219,6 +231,49 @@ namespace Trebuchet.Game.Scripting
                 if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
                     // close game window
                     CloseWindow();   
+            }
+        }
+
+        private void DrawTrebuchet(Texture2D texture)
+        {
+            BeginDrawing();
+            DrawTexture(texture, 0, 400, WHITE);
+            System.Console.WriteLine("BEANS");
+            EndDrawing();
+        }
+        private void DrawTrebuchetAnimation()
+        {
+            Image[] trebuchet = new Image[]
+            { 
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet idle.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 1.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 2.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 3.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 4.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 5.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 6.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 7.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 8.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 9.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 10.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 11.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 12.png"),
+                LoadImage("Game/Assets/Images/trebuchet/trebuchet 13.png")
+            };
+
+            foreach (Image frame in trebuchet)
+            {
+                float timeElapsed = (float)0.0;
+                var frameTime = Raylib.GetFrameTime();
+
+                while (timeElapsed < .2)
+                {
+                    System.Console.WriteLine(frameTime);
+                    Texture2D trebuchetTexture = LoadTextureFromImage(frame);
+                    textures["Trebuchet Moving"] = trebuchetTexture;
+                    DrawTrebuchet(textures["Trebuchet Moving"]);
+                    timeElapsed += frameTime;
+                }
             }
         }
     }

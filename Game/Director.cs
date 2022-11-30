@@ -28,6 +28,8 @@ namespace Trebuchet.Game.Director
             else if (counterWeight.getIfSet())
             {
                 ball = new Ball(100, counterWeight.getAnswer(), 1, 5.5, 30);
+                counterWeight.setInput("");
+                counterWeight.setAnswer();
             }
             
 
