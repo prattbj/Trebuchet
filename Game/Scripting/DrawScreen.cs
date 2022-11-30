@@ -54,7 +54,7 @@ namespace Trebuchet.Game.Scripting
             if (ball.getExists())
                 DrawBall(textures["Ball"], ball);
 
-            DrawCastle(textures["Castle"]);
+            DrawCastle(textures["Castle"], castle);
             DrawInputField(counterWeight);
             if (!ball.getExists())
             {
