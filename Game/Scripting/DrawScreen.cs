@@ -75,7 +75,7 @@ namespace Trebuchet.Game.Scripting
             {
                 timer += GetFrameTime();
 
-                if (timer >= .2f)
+                if (timer >= .1f)
                 {
                     timer = 0.0f;
                     frame++;                
@@ -87,6 +87,7 @@ namespace Trebuchet.Game.Scripting
                     throwing = false;
                     frame = 0;
                 }
+                // throw ball on frame 9
                 else if (frame == 9)
                 {
 
@@ -282,7 +283,6 @@ namespace Trebuchet.Game.Scripting
         {
             float frameWidth = 400;
 
-            Console.WriteLine("Frame: " + frame);
             Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)texture.height);
             Vector2 pos = new Vector2(0, 400);
             DrawTextureRec(texture, border, pos, WHITE);
