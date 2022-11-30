@@ -11,7 +11,7 @@ namespace Trebuchet.Game.Scripting
 
         //double answer = 0;
         int charCount = 0;
-
+        
         bool typing = false;
 
         int framesCounter = 0;
@@ -132,11 +132,17 @@ namespace Trebuchet.Game.Scripting
                 // Check if more characters have been pressed on the same frame
                 while (key > 0)
                 {
+                    
                     // NOTE: Only allow keys in range [48..57]
                     if (((key >= 48 && key <= 57) || key == 46) && (inputField.getInput().Length < Constants.MAX_INPUT_CHARS))
                     {
-                        inputField.addChar((char)key);
-                        charCount++;
+                        if ((!(inputField.getInput().Contains('.'))) || (key != 46))
+                        {
+                            inputField.addChar((char)key);
+                            charCount++;
+                                
+                        }
+                        
                     }
 
                     key = GetCharPressed();  // Check next character in the queue
