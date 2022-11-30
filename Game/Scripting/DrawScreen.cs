@@ -267,12 +267,10 @@ namespace Trebuchet.Game.Scripting
         {
             float frameWidth = 400;
 
-            BeginDrawing();
             Console.WriteLine("Frame: " + frame);
             Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)texture.height);
             Vector2 pos = new Vector2(0, 400);
             DrawTextureRec(texture, border, pos, WHITE);
-            EndDrawing();
         }
     }
 }
