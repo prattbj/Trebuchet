@@ -1,4 +1,7 @@
-
+using Raylib_cs;
+using static Raylib_cs.Raylib;
+using static Raylib_cs.Color;
+using System.Numerics;
 namespace Trebuchet.Game.Casting
 {
     public class Ball
@@ -12,6 +15,7 @@ namespace Trebuchet.Game.Casting
         private bool exists;
         private double x;
         private double y;
+        private double scale = .2;
         public Ball()
         {
             exists = false;
@@ -45,6 +49,10 @@ namespace Trebuchet.Game.Casting
             }
         }
 
+        public void SetExists()
+        {
+            exists = false;
+        }
         static double ComputeVelocity(double ballWeight, double counterWeight, double counterHeight, double ballHeight)
         {
             return Math.Sqrt(-2 * (ballWeight * 9.8 * ballHeight - counterWeight *  9.8 * counterHeight)/ballWeight);
@@ -125,5 +133,9 @@ namespace Trebuchet.Game.Casting
             this.v = value;
         }
         
+        public Vector2 getCenter()
+        {
+            return new Vector2((float)(x + scale*50), (float)(y - scale*50));
+        }
     }
 }

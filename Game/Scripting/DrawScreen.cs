@@ -45,7 +45,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D trebuchetTexture = LoadTextureFromImage(trebuchet);
             textures["Moving Trebuchet"] = trebuchetTexture;
         }
-        public void Execute(Ball ball, InputField counterWeight)
+        public void Execute(Ball ball, Castle castle, InputField counterWeight)
         {
             BeginDrawing();
             ClearBackground(RAYWHITE);
@@ -58,7 +58,11 @@ namespace Trebuchet.Game.Scripting
 
             DrawCastle(textures["Castle"]);
             DrawInputField(counterWeight);
-            DrawSubmitButton(1150, 840, 185, 50);
+            if (!ball.getExists())
+            {
+                DrawSubmitButton(1150, 840, 185, 50);
+            }
+            
             DrawEquations(ball);
 
             //When the submit button is pressed, set the answers for each input field and reset launch
@@ -108,9 +112,9 @@ namespace Trebuchet.Game.Scripting
             DrawTexture(texture, (int)ball.getX(), (int)ball.getY(), WHITE);
         }
 
-        private void DrawCastle(Texture2D texture)
+        private void DrawCastle(Texture2D texture, Castle castle)
         {
-            DrawTexture(texture, 1400, 750, WHITE);
+            DrawTexture(texture, (int)castle.getPos().X, (int)castle.getPos().Y, WHITE);
         }
 
         private void DrawEquations(Ball ball)
@@ -157,11 +161,17 @@ namespace Trebuchet.Game.Scripting
                 // Check if more characters have been pressed on the same frame
                 while (key > 0)
                 {
+                    
                     // NOTE: Only allow keys in range [48..57]
                     if (((key >= 48 && key <= 57) || key == 46) && (inputField.getInput().Length < Constants.MAX_INPUT_CHARS))
                     {
-                        inputField.addChar((char)key);
-                        charCount++;
+                        if ((!(inputField.getInput().Contains('.'))) || (key != 46))
+                        {
+                            inputField.addChar((char)key);
+                            charCount++;
+                                
+                        }
+                        
                     }
 
                     key = GetCharPressed();  // Check next character in the queue
