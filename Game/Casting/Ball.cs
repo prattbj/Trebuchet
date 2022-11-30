@@ -1,4 +1,5 @@
-
+using Raylib_cs;
+using static Raylib_cs.Raylib;
 namespace Trebuchet.Game.Casting
 {
     public class Ball
@@ -46,6 +47,10 @@ namespace Trebuchet.Game.Casting
             }
         }
 
+        public void setExists()
+        {
+            exists = false;
+        }
         static double ComputeVelocity(double ballWeight, double counterWeight, double counterHeight, double ballHeight)
         {
             return Math.Sqrt(-2 * (ballWeight * 9.8 * ballHeight - counterWeight *  9.8 * counterHeight)/ballWeight);

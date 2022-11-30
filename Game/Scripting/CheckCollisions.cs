@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Raylib_cs;
-namespace Trebuchet_Game.Game.Scripting
+using Trebuchet.Game.Casting;
+namespace Trebuchet.Game.Scripting
 {
     public class CheckCollisions
     {
-        public execute(Ball ball, Castle castle)
+        public void execute(Ball ball, Castle castle)
         {
             if (CheckCollisionCircleRec(ball.getCenter(), 10, castle.getRectangle()))
             {
-                ball
+                ball.SetExists();
             }
         }
     }

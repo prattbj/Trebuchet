@@ -1,5 +1,6 @@
 using Raylib_cs;
-namespace Trebuchet.Game.Casting.Castle
+using static Raylib_cs.Raylib;
+namespace Trebuchet.Game.Casting
 {
     public class Castle
     {
@@ -15,7 +16,7 @@ namespace Trebuchet.Game.Casting.Castle
         }
         public Rectangle getRec()
         {
-            return Rectangle(pos.x, pos.y, 250, 400)
+            return Rectangle(pos.x, pos.y, 250, 400);
         }
 
     }
