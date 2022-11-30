@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Raylib_cs;
 using Trebuchet.Game.Casting;
 namespace Trebuchet.Game.Scripting
@@ -10,7 +6,7 @@ namespace Trebuchet.Game.Scripting
     {
         public void execute(Ball ball, Castle castle)
         {
-            if (CheckCollisionCircleRec(ball.getCenter(), 10, castle.getRectangle()))
+            if (Raylib.CheckCollisionCircleRec(ball.getCenter(), 10, castle.getRec()))
             {
                 ball.SetExists();
             }

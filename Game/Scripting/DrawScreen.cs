@@ -85,7 +85,7 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawCastle(Texture2D texture, Castle castle)
         {
-            DrawTexture(texture, castle.getPos().x, castle.getPos().y, WHITE);
+            DrawTexture(texture, (int)castle.getPos().X, (int)castle.getPos().Y, WHITE);
         }
 
         private void DrawEquations(Ball ball)

@@ -1,5 +1,7 @@
 using Raylib_cs;
 using static Raylib_cs.Raylib;
+using static Raylib_cs.Color;
+using System.Numerics;
 namespace Trebuchet.Game.Casting
 {
     public class Ball
@@ -47,7 +49,7 @@ namespace Trebuchet.Game.Casting
             }
         }
 
-        public void setExists()
+        public void SetExists()
         {
             exists = false;
         }
@@ -133,7 +135,7 @@ namespace Trebuchet.Game.Casting
         
         public Vector2 getCenter()
         {
-            return Vector2(x + scale*50, y - scale*50);
+            return new Vector2((float)(x + scale*50), (float)(y - scale*50));
         }
     }
 }
