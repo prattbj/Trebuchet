@@ -49,7 +49,11 @@ namespace Trebuchet.Game.Scripting
             }
             DrawCastle(textures["Castle"], castle);
             DrawInputField(counterWeight);
-            DrawSubmitButton(1150, 840, 185, 50);
+            if (!ball.getExists())
+            {
+                DrawSubmitButton(1150, 840, 185, 50);
+            }
+            
             DrawEquations(ball);
 
             //When the submit button is pressed, set the answers for each input field and reset launch

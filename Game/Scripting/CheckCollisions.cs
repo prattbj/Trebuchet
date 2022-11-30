@@ -9,7 +9,9 @@ namespace Trebuchet.Game.Scripting
             if (Raylib.CheckCollisionCircleRec(ball.getCenter(), 10, castle.getRec()))
             {
                 ball.SetExists();
+                
             }
+
         }
     }
 }
