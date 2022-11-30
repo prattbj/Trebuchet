@@ -25,7 +25,7 @@ namespace Trebuchet.Game.Casting
             this.dy = -Math.Cos(aRadians) * v * 1280/250;
             this.aDegrees = degrees;
             this.x = 200;
-            this.y = 850;
+            this.y = 500;
         }
         public bool getExists()
         {
