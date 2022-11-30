@@ -12,6 +12,7 @@ namespace Trebuchet.Game.Casting
         private bool exists;
         private double x;
         private double y;
+        private double scale = .2;
         public Ball()
         {
             exists = false;
@@ -119,5 +120,9 @@ namespace Trebuchet.Game.Casting
             this.v = value;
         }
         
+        public Vector2 getCenter()
+        {
+            return Vector2(x + scale*50, y - scale*50);
+        }
     }
 }

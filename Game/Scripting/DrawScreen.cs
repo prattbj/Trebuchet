@@ -32,7 +32,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D castleTexture = LoadTextureFromImage(castle);
             textures["Castle"] = castleTexture;
         }
-        public void Execute(Ball ball, InputField counterWeight)
+        public void Execute(Ball ball, Castle castle, InputField counterWeight)
         {
             DrawBackground(textures["Background"]);
             DrawTexture(textures["Ball"], (int)ball.getX(), (int)ball.getY(), WHITE);
@@ -44,7 +44,7 @@ namespace Trebuchet.Game.Scripting
             {
                 DrawBall(textures["Ball"], ball);
             }
-            DrawCastle(textures["Castle"]);
+            DrawCastle(textures["Castle"], castle);
             DrawInputField(counterWeight);
             DrawSubmitButton(1150, 840, 185, 50);
             DrawEquations(ball);
@@ -77,9 +77,9 @@ namespace Trebuchet.Game.Scripting
             DrawTexture(texture, (int)ball.getX(), (int)ball.getY(), WHITE);
         }
 
-        private void DrawCastle(Texture2D texture)
+        private void DrawCastle(Texture2D texture, Castle castle)
         {
-            DrawTexture(texture, 1400, 750, WHITE);
+            DrawTexture(texture, castle.getPos().x, castle.getPos().y, WHITE);
         }
 
         private void DrawEquations(Ball ball)
