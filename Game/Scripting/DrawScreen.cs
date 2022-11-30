@@ -53,8 +53,6 @@ namespace Trebuchet.Game.Scripting
             DrawBackground(textures["Background"]);
             if (ball.getExists())
                 DrawBall(textures["Ball"], ball);
-            else
-                DrawTrebuchet(textures["Idle Trebuchet"]);
 
             DrawCastle(textures["Castle"]);
             DrawInputField(counterWeight);
@@ -89,7 +87,14 @@ namespace Trebuchet.Game.Scripting
                     throwing = false;
                     frame = 0;
                 }
+                else if (frame == 9)
+                {
+
+                }
             }
+            else
+                DrawTrebuchet(textures["Idle Trebuchet"]);
+
             EndDrawing();
         }
         
