@@ -4,14 +4,23 @@ namespace Trebuchet.Game.Scripting
 {
     public class CheckCollisions
     {
+        private bool explode = false;
         public void execute(Ball ball, Castle castle)
         {
             if (Raylib.CheckCollisionCircleRec(ball.getCenter(), 10, castle.getRec()))
             {
-                ball.SetExists();
-                
-            }
-            
+                ball.SetExists(false);
+                explode = true;
+            }            
+
+        }
+        public bool getExplode()
+        {
+            return explode;
+        }
+        public void setExplode(bool expl)
+        {
+            explode = expl;
         }
     }
 }
