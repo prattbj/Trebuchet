@@ -110,7 +110,7 @@ namespace Trebuchet.Game.Scripting
         }
         private void DrawBackground(Texture2D texture)
         {
-            DrawTexture(texture, 0, 0, WHITE);
+            DrawTexture(texture,  0, 0, WHITE);
         }
 
         private void DrawBall(Texture2D texture, Ball ball)
@@ -121,7 +121,7 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawCastle(Texture2D texture, Castle castle)
         {
-            DrawTexture(texture, (int)castle.getPos().X, (int)castle.getPos().Y, WHITE);
+            DrawTextureEx(texture, new Vector2((int)castle.getPos().X, (int)castle.getPos().Y), 0, 1, WHITE);
         }
 
         private void DrawEquations(Ball ball)
@@ -278,7 +278,7 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawTrebuchet(Texture2D texture)
         {
-            DrawTexture(texture, 0, 400, WHITE);
+            DrawTextureEx(texture, new Vector2(0, 400), 0, 1, WHITE);
         }
         private void DrawTrebuchetAnimation(Texture2D texture, int frame)
         {
