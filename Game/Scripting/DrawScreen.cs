@@ -146,7 +146,7 @@ namespace Trebuchet.Game.Scripting
             DrawTextEx(Constants.font, $"Mass of P = {Constants.PROJECTILE_MASS}kg", pMassPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Height of PL = {Constants.PROJECTILE_HEIGHT}m", pHeightPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Velocity = {String.Format("{0:0.00}", ball.getV())}m/s^2", velPos, 30, 1, BLACK);
-            DrawTextEx(Constants.font, "Mass of CW = ", cwMassPos, 30, 1, BLACK);
+            DrawTextEx(Constants.font, "Mass of CW =          kg", cwMassPos, 30, 1, BLACK);
         }
         private void DrawInputField(InputField inputField)
         {
