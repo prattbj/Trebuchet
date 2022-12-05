@@ -132,7 +132,10 @@ namespace Trebuchet.Game.Casting
         {
             this.v = value;
         }
-        
+        public double getScale()
+        {
+            return scale;
+        }
         public Vector2 getCenter()
         {
             return new Vector2((float)(x + scale*50), (float)(y - scale*50));
