@@ -22,17 +22,20 @@ namespace Trebuchet.Game.Director
         {
             
         }
+        //Runst the game
         public void RunGame() 
         {
-
+            //Draw the screen, handles inputs
             drawScreen.Execute(ball, castle, counterWeight, ballWeight, counterHeight);
+            //If ball exists, then move the ball
             if (ball.getExists())
             {
                 ball.move();
-            }
-            else if (counterWeight.getIfSet() && ballWeight.getIfSet())
+            } //If the inputfields have been set then create the ball
+            else if (counterWeight.getIfSet() && ballWeight.getIfSet() && counterHeight.getIfSet())
             {
                 ball = new Ball(ballWeight.getAnswer(), counterWeight.getAnswer(), Constants.PROJECTILE_HEIGHT, counterHeight.getAnswer(), 30);
+                //Reset the input fields
                 ballWeight.setInput("");
                 ballWeight.setAnswer();
                 counterHeight.setInput("");
