@@ -15,7 +15,7 @@ namespace Trebuchet.Game.Casting
         private bool exists;
         private double x;
         private double y;
-        private double scale = .69;
+        private double scale = .19;
         public Ball()
         {
             exists = false;
@@ -28,8 +28,8 @@ namespace Trebuchet.Game.Casting
             this.dx = Math.Sin(aRadians) * v * 1280/250;
             this.dy = -Math.Cos(aRadians) * v * 1280/250;
             this.aDegrees = degrees;
-            this.x = 200;
-            this.y = 450;
+            this.x = 100;
+            this.y = 666;
         }
         public bool getExists()
         {
