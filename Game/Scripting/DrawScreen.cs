@@ -29,7 +29,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D idleTexture = LoadTextureFromImage(idleTrebuchet);
             textures["Idle Trebuchet"] = idleTexture;
 
-            Image background = LoadImage("Game/Assets/Images/background-v1.png");
+            Image background = LoadImage("Game/Assets/Images/background v2.png");
             Texture2D bgTexture = LoadTextureFromImage(background);
             textures["Background"] = bgTexture;
 
