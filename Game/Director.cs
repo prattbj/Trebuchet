@@ -15,9 +15,9 @@ namespace Trebuchet.Game.Director
         // private CheckCollisions checkCollisions = new CheckCollisions();
         private Castle castle = new Castle(new Vector2(1400, 750));
         private Ball ball = new Ball();
-        private InputField counterWeight = new InputField(1010, 835, 100, 35);
-        private InputField ballWeight = new InputField(560, 835, 100, 35);
-        private InputField counterHeight = new InputField(200, 835, 100, 35);
+        private InputField counterWeight = new InputField(1005, 835, 100, 35);
+        private InputField ballWeight = new InputField(565, 835, 100, 35);
+        private InputField counterHeight = new InputField(240, 835, 100, 35);
         public Director()
         {
             
