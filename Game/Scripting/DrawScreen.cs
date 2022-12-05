@@ -45,7 +45,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D castleTexture = LoadTextureFromImage(castle);
             textures["Castle"] = castleTexture;
 
-            Image trebuchet = LoadImage("Game/Assets/Images/trebuchet/trebuchet sprite sheet 75%.png");
+            Image trebuchet = LoadImage("Game/Assets/Images/trebuchet/trebuchet sprite sheet 25%.png");
             Texture2D trebuchetTexture = LoadTextureFromImage(trebuchet);
             textures["Moving Trebuchet"] = trebuchetTexture;
 
@@ -307,14 +307,14 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawTrebuchet(Texture2D texture)
         {
-            DrawTextureEx(texture, new Vector2(0, 400), 0, (float)0.25, WHITE);
+            DrawTextureEx(texture, new Vector2(50, 700), 0, (float)0.25, WHITE);
         }
         private void DrawTrebuchetAnimation(Texture2D texture, int frame)
         {
             float frameWidth = 100;
 
             Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)texture.height);
-            Vector2 pos = new Vector2(0, 400);
+            Vector2 pos = new Vector2(50, 700);
             DrawTextureRec(texture, border, pos, WHITE);
         }
         private void DrawExplosion(Texture2D texture, int frame)
