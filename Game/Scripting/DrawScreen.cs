@@ -129,8 +129,8 @@ namespace Trebuchet.Game.Scripting
             //Positions
             Vector2 defPosition = new Vector2(15, 10);
             Vector2 defPosition2 = new Vector2(15, 40);
-            Vector2 gPos = new Vector2(15, 840);
-            Vector2 cwHeightPos = new Vector2(15, 870);
+            Vector2 cwHeightPos = new Vector2(15, 840);
+            Vector2 gPos = new Vector2(15, 870);
             Vector2 pMassPos = new Vector2(385, 840);
             Vector2 pHeightPos = new Vector2(385, 870);
             Vector2 velPos = new Vector2(805, 870);
