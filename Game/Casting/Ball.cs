@@ -1,3 +1,4 @@
+// imports
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static Raylib_cs.Color;
@@ -6,7 +7,7 @@ namespace Trebuchet.Game.Casting
 {
     public class Ball
     {
-        
+        // ball variables 
         private double dx;
         private double dy;
         private double aDegrees;
@@ -16,10 +17,15 @@ namespace Trebuchet.Game.Casting
         private double x;
         private double y;
         private double scale = .69;
+
+        // functions
+        // makes ball visable
         public Ball()
         {
             exists = false;
         }
+
+        // initalize ball
         public Ball(double bW, double cW, double bH, double cH, double degrees)
         {
             exists = false;
@@ -35,6 +41,8 @@ namespace Trebuchet.Game.Casting
         {
             return exists;
         }
+
+        // math to move the ball
         public void move()
         {
             this.x += (dx * (1.0 / 60.0 ));
@@ -53,16 +61,20 @@ namespace Trebuchet.Game.Casting
         {
             exists = e;
         }
+
+        // total velocity
         static double ComputeVelocity(double ballWeight, double counterWeight, double counterHeight, double ballHeight)
         {
             return Math.Sqrt(-2 * (ballWeight * 9.8 * ballHeight - counterWeight *  9.8 * counterHeight)/ballWeight);
         }
 
+        // vertical velocity
         static double ComputeVerticalComponent(double a, double total)
         {
             return Math.Cos(a) * total;
         }
 
+        // horizontal velocity 
         static double ComputeHorizontalComponent(double a, double total)
         {
             return Math.Sin(a) * total;
