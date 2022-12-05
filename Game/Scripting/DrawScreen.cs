@@ -10,7 +10,7 @@ namespace Trebuchet.Game.Scripting
     {
 
         //double answer = 0;
-        int charCount = 0;
+
 
         int trebuchetFrame = 0;
         int explosionFrame = 0;
@@ -18,7 +18,7 @@ namespace Trebuchet.Game.Scripting
 
         bool throwing = false;
 
-        bool typing = false;
+
 
         bool launch = false;
         float trebuchetTimer = 0.0f;
@@ -53,7 +53,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D explosionTexture = LoadTextureFromImage(explosion);
             textures["Explosion"] = explosionTexture;
         }
-        public void Execute(Ball ball, Castle castle, InputField counterWeight)
+        public void Execute(Ball ball, Castle castle, InputField counterWeight, InputField ballWeight, InputField counterHeight)
         {
             BeginDrawing();
             ClearBackground(RAYWHITE);
@@ -64,7 +64,9 @@ namespace Trebuchet.Game.Scripting
 
             DrawCastle(textures["Castle"], castle);
             DrawInputField(counterWeight);
-            if (!ball.getExists())
+            DrawInputField(ballWeight);
+            DrawInputField(counterHeight);
+            if (!ball.getExists() && counterWeight.getCharCount() > 0 && ballWeight.getCharCount() > 0 && counterHeight.getCharCount() > 0)
             {
                 DrawSubmitButton(1150, 840, 185, 50);
             }
@@ -73,12 +75,15 @@ namespace Trebuchet.Game.Scripting
                 checkCollisions.execute(ball, castle);
             }
             
+            
             DrawEquations(ball);
 
             //When the submit button is pressed, set the answers for each input field and reset launch
             if (launch == true)
             {
                 counterWeight.setAnswer();
+                ballWeight.setAnswer();
+                counterHeight.setAnswer();
                 throwing = true;
                 launch = false;
             }
@@ -173,7 +178,7 @@ namespace Trebuchet.Game.Scripting
             // draw the variables to the screen
             DrawTextEx(Constants.font, $"Gravity = {Constants.GRAVITY}m/s", gPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Height of CW = {Constants.COUNTERWEIGHT_HEIGHT}m", cwHeightPos, 30, 1, BLACK);
-            DrawTextEx(Constants.font, $"Mass of P = {Constants.PROJECTILE_MASS}kg", pMassPos, 30, 1, BLACK);
+            DrawTextEx(Constants.font, $"Mass of P =           kg", pMassPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Height of PL = {Constants.PROJECTILE_HEIGHT}m", pHeightPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Velocity = {String.Format("{0:0.00}", ball.getV())}m/s^2", velPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, "Mass of CW =          kg", cwMassPos, 30, 1, BLACK);
@@ -184,10 +189,10 @@ namespace Trebuchet.Game.Scripting
             if (CheckCollisionPointRec(GetMousePosition(), inputField.getRectangle()))
             {
                 if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
-                    typing = true;
+                    inputField.setTyping(true);
             }
 
-            if (typing)
+            if (inputField.getTyping())
             {
                 // Set the window's cursor to the I-Beam
                 SetMouseCursor(MouseCursor.MOUSE_CURSOR_IBEAM);
@@ -205,7 +210,7 @@ namespace Trebuchet.Game.Scripting
                         if ((!(inputField.getInput().Contains('.'))) || (key != 46))
                         {
                             inputField.addChar((char)key);
-                            charCount++;
+                            inputField.setCharCount(1);
                                 
                         }
                         
@@ -220,23 +225,23 @@ namespace Trebuchet.Game.Scripting
                     if (inputField.getInput().Length > 0)
                     {
                         inputField.setInput(inputField.getInput().Remove(inputField.getInput().Length - 1, 1));
-                        charCount--;
+                        inputField.setCharCount(-1);
                     }
                 }
                 if (CheckCollisionPointRec(GetMousePosition(), inputField.getRectangle()) == false)
                 {
                     if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
-                        typing = false;
+                        inputField.setTyping(false);
                 }
             }
             else SetMouseCursor(MouseCursor.MOUSE_CURSOR_DEFAULT);
 
-            if (typing) framesCounter++;
+            if (inputField.getTyping()) framesCounter++;
             else framesCounter = 0;
             // Update
             //———————————————————————————-
             DrawRectangleRec(inputField.getRectangle(), LIGHTGRAY);
-            if (typing) 
+            if (inputField.getTyping()) 
                 DrawRectangleLines((int)inputField.getRectangle().x, (int)inputField.getRectangle().y, (int)inputField.getRectangle().width, (int)inputField.getRectangle().height, RED);
             else 
                 DrawRectangleLines((int)inputField.getRectangle().x, (int)inputField.getRectangle().y, (int)inputField.getRectangle().width, (int)inputField.getRectangle().height, DARKGRAY);
@@ -244,9 +249,9 @@ namespace Trebuchet.Game.Scripting
             Vector2 textPos = new Vector2((int)inputField.getRectangle().x + 5, (int)inputField.getRectangle().y + 2);
             DrawTextEx(Constants.font, inputField.getInput(), textPos, 35, 1, BLACK);
 
-            if (typing)
+            if (inputField.getTyping())
                 {
-                    if (charCount < Constants.MAX_INPUT_CHARS)
+                    if (inputField.getCharCount() < Constants.MAX_INPUT_CHARS)
                     {
                         // Draw blinking underscore char
                          Vector2 cursorPos = new Vector2((int)inputField.getRectangle().x + 8 + MeasureText(inputField.getInput(), 30), (int)inputField.getRectangle().y + 8);
