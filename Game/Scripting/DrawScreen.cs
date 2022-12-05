@@ -164,8 +164,8 @@ namespace Trebuchet.Game.Scripting
             //Positions
             Vector2 defPosition = new Vector2(15, 10);
             Vector2 defPosition2 = new Vector2(15, 40);
-            Vector2 gPos = new Vector2(15, 840);
-            Vector2 cwHeightPos = new Vector2(15, 870);
+            Vector2 cwHeightPos = new Vector2(15, 840);
+            Vector2 gPos = new Vector2(15, 870);
             Vector2 pMassPos = new Vector2(385, 840);
             Vector2 pHeightPos = new Vector2(385, 870);
             Vector2 velPos = new Vector2(805, 870);
@@ -177,7 +177,7 @@ namespace Trebuchet.Game.Scripting
 
             // draw the variables to the screen
             DrawTextEx(Constants.font, $"Gravity = {Constants.GRAVITY}m/s", gPos, 30, 1, BLACK);
-            DrawTextEx(Constants.font, $"Height of CW = {Constants.COUNTERWEIGHT_HEIGHT}m", cwHeightPos, 30, 1, BLACK);
+            DrawTextEx(Constants.font, $"Height of CW =          m", cwHeightPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Mass of P =           kg", pMassPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Height of PL = {Constants.PROJECTILE_HEIGHT}m", pHeightPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Velocity = {String.Format("{0:0.00}", ball.getV())}m/s^2", velPos, 30, 1, BLACK);
