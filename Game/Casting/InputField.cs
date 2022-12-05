@@ -4,14 +4,31 @@ namespace Trebuchet.Game.Casting
 {
     public class InputField
     {
-        Rectangle rectangle;
-        double answer = 0;
-        string input = "";
+        private Rectangle rectangle;
+        private double answer = 0;
+        private string input = "";
+        private int charCount;
+        private bool typing;
         public InputField(int x, int y, int width, int height)
         {
             rectangle = new Rectangle(x, y, width, height);
         }
-
+        public void setCharCount(int num)
+        {
+            charCount += num;
+        }
+        public int getCharCount()
+        {
+            return charCount;
+        }
+        public void setTyping(bool typing)
+        {
+            this.typing = typing;
+        }
+        public bool getTyping()
+        {
+            return typing;
+        }
         public Rectangle getRectangle()
         {
             return rectangle;
