@@ -37,10 +37,6 @@ namespace Trebuchet.Game.Casting
             this.x = 100;
             this.y = 666;
         }
-        public bool getExists()
-        {
-            return exists;
-        }
 
         // math to move the ball
         public void move()
@@ -55,11 +51,6 @@ namespace Trebuchet.Game.Casting
                 exists = false;
                 v = 0;
             }
-        }
-
-        public void SetExists(bool e)
-        {
-            exists = e;
         }
 
         // total velocity
@@ -92,6 +83,14 @@ namespace Trebuchet.Game.Casting
 
 
         //Getters and Setters
+        public bool getExists()
+        {
+            return exists;
+        }
+        public void SetExists(bool e)
+        {
+            exists = e;
+        }
         public double getDX()
         {
             return this.dx;
