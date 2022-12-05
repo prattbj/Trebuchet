@@ -22,14 +22,14 @@ namespace Trebuchet.Game.Casting
         }
         public Ball(double bW, double cW, double bH, double cH, double degrees)
         {
-            exists = true;
+            exists = false;
             this.v = ComputeVelocity(bW, cW, cH, bH);
             this.aRadians = degrees * Math.PI / 180;
             this.dx = Math.Sin(aRadians) * v * 1280/250;
             this.dy = -Math.Cos(aRadians) * v * 1280/250;
             this.aDegrees = degrees;
             this.x = 200;
-            this.y = 500;
+            this.y = 450;
         }
         public bool getExists()
         {
@@ -49,9 +49,9 @@ namespace Trebuchet.Game.Casting
             }
         }
 
-        public void SetExists()
+        public void SetExists(bool e)
         {
-            exists = false;
+            exists = e;
         }
         static double ComputeVelocity(double ballWeight, double counterWeight, double counterHeight, double ballHeight)
         {

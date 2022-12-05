@@ -12,10 +12,12 @@ namespace Trebuchet.Game.Director
         
         private DrawScreen drawScreen = new DrawScreen();
         
-        private CheckCollisions checkCollisions = new CheckCollisions();
+        // private CheckCollisions checkCollisions = new CheckCollisions();
         private Castle castle = new Castle(new Vector2(1400, 750));
         private Ball ball = new Ball();
         private InputField counterWeight = new InputField(1010, 835, 100, 35);
+        private InputField ballWeight = new InputField(560, 835, 100, 35);
+        private InputField counterHeight = new InputField(200, 835, 100, 35);
         public Director()
         {
             
@@ -23,18 +25,21 @@ namespace Trebuchet.Game.Director
         public void RunGame() 
         {
 
-            drawScreen.Execute(ball, castle, counterWeight);
+            drawScreen.Execute(ball, castle, counterWeight, ballWeight, counterHeight);
             if (ball.getExists())
             {
                 ball.move();
             }
-            else if (counterWeight.getIfSet())
+            else if (counterWeight.getIfSet() && ballWeight.getIfSet())
             {
-                ball = new Ball(100, counterWeight.getAnswer(), 1, 5.5, 30);
+                ball = new Ball(ballWeight.getAnswer(), counterWeight.getAnswer(), 1, counterHeight.getAnswer(), 30);
+                ballWeight.setInput("");
+                ballWeight.setAnswer();
+                counterHeight.setInput("");
+                counterHeight.setAnswer();
                 counterWeight.setInput("");
                 counterWeight.setAnswer();
             }
-            checkCollisions.execute(ball, castle);
 
         }
     }
