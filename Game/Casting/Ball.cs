@@ -15,7 +15,7 @@ namespace Trebuchet.Game.Casting
         private bool exists;
         private double x;
         private double y;
-        private double scale = .2;
+        private double scale = .4;
         public Ball()
         {
             exists = false;
