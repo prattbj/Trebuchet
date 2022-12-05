@@ -17,9 +17,9 @@
 * levels
 * diffrent projectiles
 * wind?
-* multie piece castle
+* multiple piece castle
 * settings menu
-* level sector menu
+* level selector menu
 * high score database
 * refactor code to be cleaner
 
