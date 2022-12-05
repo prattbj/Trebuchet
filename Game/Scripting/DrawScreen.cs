@@ -11,11 +11,7 @@ namespace Trebuchet.Game.Scripting
         int trebuchetFrame = 0;
         int explosionFrame = 0;
         int framesCounter = 0;
-
         bool throwing = false;
-
-
-
         bool launch = false;
         float trebuchetTimer = 0.0f;
         float explosionTimer = 0.0f;
@@ -88,18 +84,22 @@ namespace Trebuchet.Game.Scripting
                 throwing = true;
                 launch = false;
             }
-            //Handle the trebuchet animation
+
+            // is the trebuchet currently moving?
             if (throwing == true)
             {
+                // change the frame every .1f
                 trebuchetTimer += GetFrameTime();
-
                 if (trebuchetTimer >= .1f)
                 {
                     trebuchetTimer = 0.0f;
                     trebuchetFrame++;                
                 }
+
+                // animate the trebuchet
                 DrawTrebuchetAnimation(textures["Moving Trebuchet"], trebuchetFrame);
 
+                // last frame - reset the animation
                 if (trebuchetFrame == 13)
                 {
                     throwing = false;
@@ -111,20 +111,26 @@ namespace Trebuchet.Game.Scripting
                     ball.SetExists(true);
                 }
             }
+
+            // if the trebuchet is not moving, draw the idle
             else
                 DrawTrebuchet(textures["Idle Trebuchet"]);
 
+            // is the castle currently exploding?
             if (checkCollisions.getExplode())
             {
+                // change the frame every .1f
                 explosionTimer += GetFrameTime();
-
                 if (explosionTimer >= .1f)
                 {
                     explosionTimer = 0.0f;
                     explosionFrame++;                
                 }
+
+                //animate the explosion
                 DrawExplosion(textures["Explosion"], explosionFrame);
 
+                // last frame - reset the animation
                 if (explosionFrame == 14)
                 {
                     checkCollisions.setExplode(false);
@@ -276,7 +282,11 @@ namespace Trebuchet.Game.Scripting
         {
             DrawTextureEx(texture, new Vector2(50, 700), 0, (float)0.25, WHITE);
         }
-        //Draw the trebuchet animation
+
+        /*********************************************************************
+        * DRAW TREBUCHET ANIMATION
+        * Draw the current trebuchet frame
+        **********************************************************************/
         private void DrawTrebuchetAnimation(Texture2D texture, int frame)
         {
             float frameWidth = 100;
@@ -285,7 +295,11 @@ namespace Trebuchet.Game.Scripting
             Vector2 pos = new Vector2(50, 700);
             DrawTextureRec(texture, border, pos, WHITE);
         }
-        //Draw the explosion
+
+        /*********************************************************************
+        * DRAW EXPLOSION ANIMATION
+        * Draw the current explosion frame
+        **********************************************************************/
         private void DrawExplosion(Texture2D texture, int frame)
         {
             float frameWidth = 300;
