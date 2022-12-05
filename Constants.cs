@@ -10,6 +10,8 @@ namespace Trebuchet
         public static double COUNTERWEIGHT_HEIGHT = 10.1;
         public static double PROJECTILE_HEIGHT = 5.25;
         public static double VELOCITY = 25.1;
+        public static int TREBUCHET_HEIGHT = 400;
+        public static int TREBUCHET_WIDTH = 400;
 
         // public static double COUNTERWEIGHT_MASS = ((VELOCITY*VELOCITY)*PROJECTILE_MASS + 2*PROJECTILE_MASS*PROJECTILE_HEIGHT*GRAVITY)/(2*COUNTERWEIGHT_HEIGHT*GRAVITY);
 

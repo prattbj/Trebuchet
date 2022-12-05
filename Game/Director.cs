@@ -12,7 +12,7 @@ namespace Trebuchet.Game.Director
         
         private DrawScreen drawScreen = new DrawScreen();
         
-        private CheckCollisions checkCollisions = new CheckCollisions();
+        // private CheckCollisions checkCollisions = new CheckCollisions();
         private Castle castle = new Castle(new Vector2(1400, 750));
         private Ball ball = new Ball();
         private InputField counterWeight = new InputField(1010, 835, 100, 35);
@@ -40,7 +40,6 @@ namespace Trebuchet.Game.Director
                 counterWeight.setInput("");
                 counterWeight.setAnswer();
             }
-            checkCollisions.execute(ball, castle);
 
         }
     }

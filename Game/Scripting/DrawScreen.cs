@@ -12,15 +12,19 @@ namespace Trebuchet.Game.Scripting
         //double answer = 0;
 
 
-        int frame = 0;
+        int trebuchetFrame = 0;
+        int explosionFrame = 0;
+        int framesCounter = 0;
 
         bool throwing = false;
 
 
 
-        int framesCounter = 0;
         bool launch = false;
-        float timer = 0.0f;
+        float trebuchetTimer = 0.0f;
+        float explosionTimer = 0.0f;
+
+        private CheckCollisions checkCollisions = new CheckCollisions();
 
         private Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         public DrawScreen()
@@ -44,6 +48,10 @@ namespace Trebuchet.Game.Scripting
             Image trebuchet = LoadImage("Game/Assets/Images/trebuchet/trebuchet sprite sheet.png");
             Texture2D trebuchetTexture = LoadTextureFromImage(trebuchet);
             textures["Moving Trebuchet"] = trebuchetTexture;
+
+            Image explosion = LoadImage("Game/Assets/Images/explosions/explosion sprite sheet (15 frames).png");
+            Texture2D explosionTexture = LoadTextureFromImage(explosion);
+            textures["Explosion"] = explosionTexture;
         }
         public void Execute(Ball ball, Castle castle, InputField counterWeight, InputField ballWeight, InputField counterHeight)
         {
@@ -62,6 +70,10 @@ namespace Trebuchet.Game.Scripting
             {
                 DrawSubmitButton(1150, 840, 185, 50);
             }
+            else
+            {
+                checkCollisions.execute(ball, castle);
+            }
             
             
             DrawEquations(ball);
@@ -78,28 +90,46 @@ namespace Trebuchet.Game.Scripting
 
             if (throwing == true)
             {
-                timer += GetFrameTime();
+                trebuchetTimer += GetFrameTime();
 
-                if (timer >= .1f)
+                if (trebuchetTimer >= .1f)
                 {
-                    timer = 0.0f;
-                    frame++;                
+                    trebuchetTimer = 0.0f;
+                    trebuchetFrame++;                
                 }
-                DrawTrebuchetAnimation(textures["Moving Trebuchet"], frame);  
+                DrawTrebuchetAnimation(textures["Moving Trebuchet"], trebuchetFrame);
 
-                if (frame == 13)
+                if (trebuchetFrame == 13)
                 {
                     throwing = false;
-                    frame = 0;
+                    trebuchetFrame = 0;
                 }
                 // throw ball on frame 9
-                else if (frame == 9)
+                else if (trebuchetFrame == 8)
                 {
-
+                    ball.SetExists(true);
                 }
             }
             else
                 DrawTrebuchet(textures["Idle Trebuchet"]);
+
+            if (checkCollisions.getExplode())
+            {
+                explosionTimer += GetFrameTime();
+
+                if (explosionTimer >= .1f)
+                {
+                    explosionTimer = 0.0f;
+                    explosionFrame++;                
+                }
+                DrawExplosion(textures["Explosion"], explosionFrame);
+
+                if (explosionFrame == 14)
+                {
+                    checkCollisions.setExplode(false);
+                    explosionFrame = 0;
+                }
+            }
 
             EndDrawing();
         }
@@ -115,7 +145,7 @@ namespace Trebuchet.Game.Scripting
         }
         private void DrawBackground(Texture2D texture)
         {
-            DrawTexture(texture, 0, 0, WHITE);
+            DrawTexture(texture,  0, 0, WHITE);
         }
 
         private void DrawBall(Texture2D texture, Ball ball)
@@ -126,7 +156,7 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawCastle(Texture2D texture, Castle castle)
         {
-            DrawTexture(texture, (int)castle.getPos().X, (int)castle.getPos().Y, WHITE);
+            DrawTextureEx(texture, new Vector2((int)castle.getPos().X, (int)castle.getPos().Y), 0, 1, WHITE);
         }
 
         private void DrawEquations(Ball ball)
@@ -151,7 +181,7 @@ namespace Trebuchet.Game.Scripting
             DrawTextEx(Constants.font, $"Mass of P =           kg", pMassPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Height of PL = {Constants.PROJECTILE_HEIGHT}m", pHeightPos, 30, 1, BLACK);
             DrawTextEx(Constants.font, $"Velocity = {String.Format("{0:0.00}", ball.getV())}m/s^2", velPos, 30, 1, BLACK);
-            DrawTextEx(Constants.font, "Mass of CW = ", cwMassPos, 30, 1, BLACK);
+            DrawTextEx(Constants.font, "Mass of CW =          kg", cwMassPos, 30, 1, BLACK);
         }
         private void DrawInputField(InputField inputField)
         {
@@ -257,12 +287,6 @@ namespace Trebuchet.Game.Scripting
             {
                 DrawRectangleRec(button, MAROON);
                 DrawText("Play Again", (int)button.x + 8, (int)button.y + 8, 40, LIGHTGRAY);
-                //if (IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT))
-                //    numInput = "";
-                    // reset trebuchet
-                    //delet ball
-                    // reset explosion
-
             }
         }
         private void DrawExitButton(int x, int y, int width, int height)
@@ -283,7 +307,7 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawTrebuchet(Texture2D texture)
         {
-            DrawTexture(texture, 0, 400, WHITE);
+            DrawTextureEx(texture, new Vector2(0, 400), 0, 1, WHITE);
         }
         private void DrawTrebuchetAnimation(Texture2D texture, int frame)
         {
@@ -292,6 +316,14 @@ namespace Trebuchet.Game.Scripting
             Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)texture.height);
             Vector2 pos = new Vector2(0, 400);
             DrawTextureRec(texture, border, pos, WHITE);
+        }
+        private void DrawExplosion(Texture2D texture, int frame)
+        {
+            float frameWidth = 300;
+            Rectangle border = new Rectangle(frameWidth * frame, 0, frameWidth, (float)texture.height);
+            Vector2 pos = new Vector2(1300, 650);
+            DrawTextureRec(texture, border, pos, WHITE);
+
         }
     }
 }
