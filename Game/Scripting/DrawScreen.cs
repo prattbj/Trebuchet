@@ -29,7 +29,7 @@ namespace Trebuchet.Game.Scripting
             Texture2D idleTexture = LoadTextureFromImage(idleTrebuchet);
             textures["Idle Trebuchet"] = idleTexture;
 
-            Image background = LoadImage("Game/Assets/Images/background-v1.png");
+            Image background = LoadImage("Game/Assets/Images/background v2.png");
             Texture2D bgTexture = LoadTextureFromImage(background);
             textures["Background"] = bgTexture;
 
@@ -115,8 +115,8 @@ namespace Trebuchet.Game.Scripting
 
         private void DrawBall(Texture2D texture, Ball ball)
         {
-
             DrawTextureEx(texture, new Vector2((int)ball.getX(), (int)ball.getY()), 0, (float)ball.getScale(), WHITE);
+
         }
 
         private void DrawCastle(Texture2D texture, Castle castle)
