@@ -32,7 +32,7 @@ namespace Trebuchet.Game.Director
             }
             else if (counterWeight.getIfSet() && ballWeight.getIfSet())
             {
-                ball = new Ball(ballWeight.getAnswer(), counterWeight.getAnswer(), 1, counterHeight.getAnswer(), 30);
+                ball = new Ball(ballWeight.getAnswer(), counterWeight.getAnswer(), Constants.PROJECTILE_HEIGHT, counterHeight.getAnswer(), 30);
                 ballWeight.setInput("");
                 ballWeight.setAnswer();
                 counterHeight.setInput("");
