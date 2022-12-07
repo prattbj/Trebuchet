@@ -11,8 +11,11 @@ Code is written in C#.
 # Collaborators
 
 Jenna Scholl
+
 Benjamin Pratt
+
 Damian Wilding
+
 Daniel Carr
 
 # Useful Websites
