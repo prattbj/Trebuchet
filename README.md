@@ -1,14 +1,27 @@
-# Trebuchet-Game
-A trebuchet simulator. 
+# Overview
 
-This is an attempt at a physics simulator that allows a user to input parameters in order to launch an object at a castle.
+This is an educational physics-based Trebuchet Simulator. To play, enter values into the appropriate fields and press "LAUNCH" to throw the boulder at the castle. 
 
-Program - creates the game loop
-Director - Handles the game loop
-DrawScreen - Handles stuff that is drawn to the screen
-CheckCollisions - Handles collisions between objects
-Ball - A thing that is launched     
-Castle - A castle 
-InputField - A field that the user can enter a number into
+# Development Environment
 
+This software was developed using VS Code. 
 
+Code is written in C#.
+
+# Collaborators
+
+Jenna Scholl
+Benjamin Pratt
+Damian Wilding
+Daniel Carr
+
+# Useful Websites
+
+* [Raylib Examples](https://www.raylib.com/examples.html)
+* [Raylib Cheatsheet](https://www.raylib.com/cheatsheet/cheatsheet.html)
+
+# Future Work
+
+* Create multiple levels
+* Add opening and closing screens
+* Add collapsing castle animation
